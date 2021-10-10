@@ -1,10 +1,8 @@
 import React from 'react'
-import './Party.css'
 import styled from 'styled-components';
 
 
 export const Party = () => {
-
     return (
         <div className="party-container">
             <PartyTitle> party </PartyTitle>
