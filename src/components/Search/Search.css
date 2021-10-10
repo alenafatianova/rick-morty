@@ -1,5 +1,5 @@
 .input-container {
-    
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -10,9 +10,7 @@
     font-size: 30px;
     padding-left: 27px;
     font-weight: 200;
-}
-
-.search-input {
+    margin-top: 141px;
     border: 1px solid #A0A0A0;
 }
 

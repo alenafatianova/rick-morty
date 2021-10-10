@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Input } from "antd";
 import './Search.css'
 
@@ -9,9 +9,8 @@ type SearchType = {
 
 export const Search: React.FC<SearchType> = ({searchQuery, setSearchQuery}) => {
 
-  const searchingHandle = (e: React.FormEvent<HTMLInputElement>) => {
-    const value = e.currentTarget.value
-    setSearchQuery(value)
+  const searchingHandle = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.currentTarget.value)
   }
 
   return (

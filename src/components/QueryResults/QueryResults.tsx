@@ -1,8 +1,8 @@
-import { useQuery } from '@apollo/client'
+import { ApolloError } from '@apollo/client'
 import { Spin } from 'antd'
-import gql from 'graphql-tag'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './QueryResults.css'
+import { CloseCircleTwoTone } from '@ant-design/icons'
 
 type CharacterType = {
     id: string
@@ -13,35 +13,36 @@ type CharacterType = {
 }
 
 type QueryResultType = {
-    searchQuery: string
-    setSearchQuery: (value: string) => void
+   loading: boolean
+   error: ApolloError | undefined
+   data: any
 }
 
-export const QueryResults: React.FC<QueryResultType> = ({searchQuery, setSearchQuery}) => {
+export const QueryResults: React.FC<QueryResultType> = ({loading, data, error}) => {
+    console.log(data)
+    const [characters, setCharacters] = useState<CharacterType[]>([])
     
-    const resultQuery = gql`
-        query getImageByName {
-            characters(filter: {name: "${searchQuery}"}) {
-                results {
-                 image
-                 name
-               }
-               }
-        }
-    `
-    console.log(resultQuery)
-    const {loading, data, error} = useQuery(resultQuery)
+    useEffect(() => {
+        if (data) setCharacters(data.characters.results)
+    }, [data])
+
+    const onDeleteHandler = (currentId: string) => {
+        setCharacters(characters.filter(character => character.id !== currentId))
+    }
 
     return (
         <div className="results-container">
-            {error ? <p>Error... </p> : null}
-            {!loading ? data.characters.results.map((character: CharacterType) => 
+            {!loading ? !error && characters.map((character: CharacterType) => 
+            <div className="image-container"  key={character.id}>
+                <CloseCircleTwoTone  onClick={() => onDeleteHandler(character.id)} className="delete-icon" twoToneColor="FFFFFF" />
                   <img 
-                    key={character.id}
+                   
                     alt='character_image' 
                     src={character.image}  
                     className="single-character-image"
                 />   
+            </div>
+            
                 ) : (<div> Loading... <Spin size="default" spinning={true} /> </div>)}
         </div>
     )
