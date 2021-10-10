@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import { Spin } from 'antd'
 import gql from 'graphql-tag'
 import React from 'react'
 import './QueryResults.css'
@@ -11,11 +12,16 @@ type CharacterType = {
     gender?: string
 }
 
+type QueryResultType = {
+    searchQuery: string
+    setSearchQuery: (value: string) => void
+}
 
-export const QueryResults = () => {
+export const QueryResults: React.FC<QueryResultType> = ({searchQuery, setSearchQuery}) => {
+    
     const resultQuery = gql`
-        query {
-            characters(filter: {name: "Morty"}) {
+        query getImageByName {
+            characters(filter: {name: "${searchQuery}"}) {
                 results {
                  image
                  name
@@ -23,6 +29,7 @@ export const QueryResults = () => {
                }
         }
     `
+    console.log(resultQuery)
     const {loading, data, error} = useQuery(resultQuery)
 
     return (
@@ -30,11 +37,12 @@ export const QueryResults = () => {
             {error ? <p>Error... </p> : null}
             {!loading ? data.characters.results.map((character: CharacterType) => 
                   <img 
+                    key={character.id}
                     alt='character_image' 
                     src={character.image}  
                     className="single-character-image"
                 />   
-                ) : (<div>Loading... </div>)}
+                ) : (<div> Loading... <Spin size="default" spinning={true} /> </div>)}
         </div>
     )
 }
