@@ -8,6 +8,8 @@ import { Search } from './components/Search/Search';
 export const App = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>("")
+  const [RickImage, setRickImage] = useState<string>("Rick")
+  const [MortyImage, setMortyImage] = useState<string>("Morty")
 
   const resultQuery = gql`
         query getImageByName {
@@ -27,10 +29,16 @@ export const App = () => {
     <div className="App">
       <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <div className="query-block-container">
-          <QueryResults loading={loading} error={error} data={data} />
+          <QueryResults 
+            loading={loading} 
+            error={error} 
+            data={data} 
+            setRickImage={setRickImage}
+            setMortyImage={setMortyImage}
+          />
       </div>
       <div className="party-block-container">
-        <Party />
+        <Party RickImage={RickImage} MortyImage={MortyImage} />
       </div>
     </div>
   );

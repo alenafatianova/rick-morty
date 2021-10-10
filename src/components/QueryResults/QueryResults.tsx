@@ -20,9 +20,11 @@ type QueryResultType = {
            results: CharacterType[]
        }
    }
+   setMortyImage: (value: string) => void
+   setRickImage: (value: string) => void
 }
 
-export const QueryResults: React.FC<QueryResultType> = ({loading, data, error}) => {
+export const QueryResults: React.FC<QueryResultType> = ({loading, data, error, setRickImage, setMortyImage}) => {
     const [characters, setCharacters] = useState<CharacterType[]>([])
     
     useEffect(() => {
@@ -31,6 +33,11 @@ export const QueryResults: React.FC<QueryResultType> = ({loading, data, error}) 
 
     const onDeleteHandler = (currentId: string) => {
         setCharacters(characters.filter(character => character.id !== currentId))
+    }
+
+    const onAddPartyHandler = (character: CharacterType) => {
+        character.name.match(/rick/i) && setRickImage(character.image)
+        character.name.match(/morty/i) && setMortyImage(character.image)
     }
 
     return (
@@ -42,6 +49,7 @@ export const QueryResults: React.FC<QueryResultType> = ({loading, data, error}) 
                     alt='character_image' 
                     src={character.image}  
                     className="single-character-image"
+                    onClick={() => onAddPartyHandler(character)}
                 />   
             </div>
             
