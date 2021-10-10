@@ -1,0 +1,14 @@
+.results-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 195px;
+    margin-right: 195px;
+}
+
+.single-character-image {
+    width: 180px;
+    height: 220px;
+    padding: 0 30px 30px 30px;
+}
