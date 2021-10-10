@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
+import { Party } from './components/Party/Party';
 import { QueryResults } from './components/QueryResults/QueryResults';
 import { Search } from './components/Search/Search';
 
@@ -27,6 +28,9 @@ export const App = () => {
       <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <div className="query-block-container">
           <QueryResults loading={loading} error={error} data={data} />
+      </div>
+      <div className="party-block-container">
+        <Party />
       </div>
     </div>
   );

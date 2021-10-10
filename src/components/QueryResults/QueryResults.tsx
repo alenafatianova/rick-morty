@@ -15,11 +15,14 @@ type CharacterType = {
 type QueryResultType = {
    loading: boolean
    error: ApolloError | undefined
-   data: any
+   data: {
+       characters: {
+           results: CharacterType[]
+       }
+   }
 }
 
 export const QueryResults: React.FC<QueryResultType> = ({loading, data, error}) => {
-    console.log(data)
     const [characters, setCharacters] = useState<CharacterType[]>([])
     
     useEffect(() => {
@@ -36,14 +39,13 @@ export const QueryResults: React.FC<QueryResultType> = ({loading, data, error}) 
             <div className="image-container"  key={character.id}>
                 <CloseCircleTwoTone  onClick={() => onDeleteHandler(character.id)} className="delete-icon" twoToneColor="FFFFFF" />
                   <img 
-                   
                     alt='character_image' 
                     src={character.image}  
                     className="single-character-image"
                 />   
             </div>
             
-                ) : (<div> Loading... <Spin size="default" spinning={true} /> </div>)}
+                ) : (<div> Loading... <Spin size="large" spinning={true} /> </div>)}
         </div>
     )
 }
