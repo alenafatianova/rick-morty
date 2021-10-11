@@ -2,19 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 
 type RickType = {
-    RickImage: string
-    MortyImage: string
+  RickImage: string
+  MortyImage: string
 }
 
-export const Party: React.FC<RickType> = ({RickImage, MortyImage}) => {
-    
+export const Party: React.FC<RickType> = ({ RickImage, MortyImage }) => {
   return (
     <div className="party-container">
       <PartyTitle> party </PartyTitle>
       <PartyBlocks>
         <AvatarContainer>
           <AvatarBlock> Rick </AvatarBlock>
-          <CharacterImage src={RickImage}/>
+          <CharacterImage src={RickImage} />
         </AvatarContainer>
 
         <AvatarContainer>
@@ -25,7 +24,6 @@ export const Party: React.FC<RickType> = ({RickImage, MortyImage}) => {
     </div>
   )
 }
-
 
 const PartyTitle = styled.h5`
   align-items: center;
