@@ -3,6 +3,7 @@ import { Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import './QueryResults.css'
 import { CloseCircleTwoTone } from '@ant-design/icons'
+import { throttle } from 'lodash'
 
 type CharacterType = {
     id: string
@@ -29,7 +30,8 @@ export const QueryResults: React.FC<QueryResultType> = ({loading, data, error, s
     
     useEffect(() => {
         if (data) setCharacters(data.characters.results)
-    }, [data])
+        else if (error) setCharacters([])
+    }, [data, error])
 
     const onDeleteHandler = (currentId: string) => {
         setCharacters(characters.filter(character => character.id !== currentId))
@@ -42,7 +44,8 @@ export const QueryResults: React.FC<QueryResultType> = ({loading, data, error, s
 
     return (
         <div className="results-container">
-            {!loading ? !error && characters.map((character: CharacterType) => 
+            {error ? <div>Error {error.message} </div>
+            : !loading ? characters.map((character: CharacterType) => 
             <div className="image-container"  key={character.id}>
                 <CloseCircleTwoTone  onClick={() => onDeleteHandler(character.id)} className="delete-icon" twoToneColor="FFFFFF" />
                   <img 

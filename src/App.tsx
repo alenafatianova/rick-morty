@@ -22,7 +22,7 @@ export const App = () => {
                }
         }
     `
-    const {loading, data, error} = useQuery(resultQuery)
+    const {loading, data, error} =  useQuery(resultQuery, {skip: searchQuery.length < 3})
 
 
   return (
