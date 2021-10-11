@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react'
+import styled from 'styled-components'
 import { Input } from 'antd'
-import './Search.css'
+
 
 type SearchType = {
   setSearchQuery: (value: string) => void
@@ -16,13 +17,28 @@ export const Search: React.FC<SearchType> = ({
   }
 
   return (
-    <div className="input-container">
+    <InputContainer>
       <Input
-        className="search-input"
+        style={{
+          height: "80px",
+          width: '810px',
+          fontSize: '30px',
+          paddingLeft: '27px',
+          fontWeight: 200,
+          marginTop: '141px',
+          marginBottom: '30px',
+          border: '1px solid #a0a0a0'
+        }}
         placeholder={'Rick or Morty?'}
         value={searchQuery}
         onChange={searchingHandle}
       />
-    </div>
+    </InputContainer>
   )
 }
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`

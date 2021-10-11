@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 type RickType = {
-  RickImage: string
-  MortyImage: string
+  RickImage: string | undefined
+  MortyImage: string | undefined
 }
 
 export const Party: React.FC<RickType> = ({ RickImage, MortyImage }) => {
@@ -12,13 +12,13 @@ export const Party: React.FC<RickType> = ({ RickImage, MortyImage }) => {
       <PartyTitle> party </PartyTitle>
       <PartyBlocks>
         <AvatarContainer>
-          <AvatarBlock> Rick </AvatarBlock>
+          {RickImage ? null : <AvatarBlock> Rick </AvatarBlock> }
           <CharacterImage src={RickImage} />
         </AvatarContainer>
 
         <AvatarContainer>
-          <AvatarBlock> Morty </AvatarBlock>
-          <CharacterImage src={MortyImage} />
+          {MortyImage ? null : <AvatarBlock> Morty </AvatarBlock>}
+          {<CharacterImage src={MortyImage} />}
         </AvatarContainer>
       </PartyBlocks>
     </div>

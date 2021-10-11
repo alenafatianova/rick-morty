@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client'
 import { Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
-import './QueryResults.css'
+import styled from 'styled-components'
 import { CloseCircleTwoTone } from '@ant-design/icons'
 
 type CharacterType = {
@@ -13,7 +13,7 @@ type CharacterType = {
 }
 
 type QueryResultType = {
-  loading: boolean
+  loading: boolean | undefined
   error: ApolloError | undefined
   data: {
     characters: {
@@ -48,31 +48,52 @@ export const QueryResults: React.FC<QueryResultType> = ({
   }
 
   return (
-    <div className="results-container">
+    <ResultsContainer>
       {error ? (
         <div>Error {error.message} </div>
       ) : !loading ? (
         characters.map((character: CharacterType) => (
-          <div className="image-container" key={character.id}>
+          <ImageContainer key={character.id}>
             <CloseCircleTwoTone
               onClick={() => onDeleteHandler(character.id)}
-              className="delete-icon"
+              style={{
+                position: "absolute",
+                left: "170px",
+                top: "10px",
+                fontSize: "30px",
+                opacity: "0.7"
+            }}
               twoToneColor="FFFFFF"
             />
-            <img
+            <SingleCharacterImage
               alt="character_image"
               src={character.image}
-              className="single-character-image"
               onClick={() => onAddPartyHandler(character)}
             />
-          </div>
+          </ImageContainer>
         ))
       ) : (
         <div>
-          {' '}
           Loading... <Spin size="large" spinning={true} />{' '}
         </div>
       )}
-    </div>
+    </ResultsContainer>
   )
 }
+
+const SingleCharacterImage = styled.img`
+    width: 180px;
+    height: 220px;
+    padding: 0 30px 30px 30px;
+`
+const ImageContainer = styled.div`
+    position: relative;
+`
+const ResultsContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-right: 195px;
+    margin-left: 195px;
+`
