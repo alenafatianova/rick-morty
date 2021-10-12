@@ -3,9 +3,9 @@
 import { gql } from '@apollo/client'
 
 
-export const result = (searchQuery: string) => gql`
-query getImageByName {
-    characters(filter: {name: "${searchQuery}"}) {
+export const apolloQuery = gql`
+query getCharactersByName ($searchQuery: String!) {
+    characters(filter: {name: $searchQuery}) {
         results {
          image
          name 
